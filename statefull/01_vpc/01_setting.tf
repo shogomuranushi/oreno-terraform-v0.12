@@ -26,7 +26,7 @@ variable "common" {
       region  = "us-central1"
       zone    = "us-central1-b"
     }
-    us-central1-prod = {
+    prod = {
       project = "gcp-project-prod"
       region  = "us-central1"
       zone    = "us-central1-c"
