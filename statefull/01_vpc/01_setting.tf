@@ -1,0 +1,39 @@
+terraform {
+  backend "gcs" {
+    bucket  = "tf-state"
+    prefix  = "vpc"
+  }
+}
+
+provider "google-beta" {
+  project = local.common.project
+}
+
+provider "google" {
+  project = local.common.project
+}
+
+variable "common" {
+  type = map(map(string))
+  default = {
+    dev = {
+      project = "gcp-project-dev"
+      region  = "us-central1"
+      zone    = "us-central1-a"
+    }
+    stg = {
+      project = "gcp-project-stg"
+      region  = "us-central1"
+      zone    = "us-central1-b"
+    }
+    us-central1-prod = {
+      project = "gcp-project-prod"
+      region  = "us-central1"
+      zone    = "us-central1-c"
+    }
+  }
+}
+
+locals {
+  common = var.common[terraform.workspace]
+}
